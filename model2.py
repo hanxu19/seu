@@ -583,7 +583,7 @@ if (Next == 'train'):
     y_train_2[ : , 0:2] = y_train[ : , 0:2] * 1/19
     y_train_2[ : , 2:4] = y_train[ : , 2:4] + (y_train_2[ : , 2:4] - y_train[ : , 2:4])*18/19
     print ("y_train_2[ran]:" , y_train_2[ran])
-    
+
     y_train_3 = np.ones([264,4]) 
     y_train_3[ : , 0:2] = y_train[ : , 0:2] * 2/19
     y_train_3[ : , 2:4] = y_train[ : , 2:4] + (y_train_3[ : , 2:4] - y_train[ : , 2:4])*17/19
@@ -670,44 +670,99 @@ if (Next == 'train'):
     print ("y_train_19[ran]:" , y_train_19[ran])
 
     print ("y_train[ran]:" , y_train[ran])
-    os.exit()
     
-    y_test_2 = y_test + (np1 - y_test)*18/19
-    print (y_test_2[ran])
-    y_test_3 = y_test + (np1 - y_test)*17/19
-    print (y_test_3[ran])
-    y_test_4 = y_test + (np1 - y_test)*16/19
-    print (y_test_4[ran])
-    y_test_5 = y_test + (np1 - y_test)*15/19
-    print (y_test_5[ran])
-    y_test_6 = y_test + (np1 - y_test)*14/19
-    print (y_test_6[ran])
-    y_test_7 = y_test + (np1 - y_test)*13/19
-    print (y_test_7[ran])
-    y_test_8 = y_test + (np1 - y_test)*12/19
-    print (y_test_8[ran])
-    y_test_9 = y_test + (np1 - y_test)*11/19
-    print (y_test_9[ran])
-    y_test_10 = y_test + (np1 - y_test)*10/19
-    print (y_test_10[ran])
-    y_test_11 = y_test + (np1 - y_test)*9/19
-    print (y_test_11[ran])
-    y_test_12 = y_test + (np1 - y_test)*8/19
-    print (y_test_12[ran])
-    y_test_13 = y_test + (np1 - y_test)*7/19
-    print (y_test_13[ran])
-    y_test_14 = y_test + (np1 - y_test)*6/19
-    print (y_test_14[ran])
-    y_test_15 = y_test + (np1 - y_test)*5/19
-    print (y_test_15[ran])
-    y_test_16 = y_test + (np1 - y_test)*4/19
-    print (y_test_16[ran])
-    y_test_17 = y_test + (np1 - y_test)*3/19
-    print (y_test_17[ran])
-    y_test_18 = y_test + (np1 - y_test)*2/19
-    print (y_test_18[ran])
-    y_test_19 = y_test + (np1 - y_test)*1/19
-    print (y_test_19[ran])
+
+    y_test_2 = np.ones([264,4])
+    y_test_2[ : , 0:2] = y_test[ : , 0:2] * 1/19
+    y_test_2[ : , 2:4] = y_test[ : , 2:4] + (y_test_2[ : , 2:4] - y_test[ : , 2:4])*18/19
+    print ("y_test_2[ran]:" , y_test_2[ran])
+
+    y_test_3 = np.ones([264,4])
+    y_test_3[ : , 0:2] = y_test[ : , 0:2] * 2/19
+    y_test_3[ : , 2:4] = y_test[ : , 2:4] + (y_test_3[ : , 2:4] - y_test[ : , 2:4])*17/19
+    print ("y_test_3[ran]:" , y_test_3[ran])
+
+    y_test_4 = np.ones([264,4])
+    y_test_4[ : , 0:2] = y_test[ : , 0:2] * 3/19
+    y_test_4[ : , 2:4] = y_test[ : , 2:4] + (y_test_4[ : , 2:4] - y_test[ : , 2:4])*16/19
+    print ("y_test_4[ran]:" , y_test_4[ran])
+
+    y_test_5 = np.ones([264,4])
+    y_test_5[ : , 0:2] = y_test[ : , 0:2] * 4/19
+    y_test_5[ : , 2:4] = y_test[ : , 2:4] + (y_test_5[ : , 2:4] - y_test[ : , 2:4])*15/19
+    print ("y_test_5[ran]:" , y_test_5[ran])
+
+    y_test_6 = np.ones([264,4])
+    y_test_6[ : , 0:2] = y_test[ : , 0:2] * 5/19
+    y_test_6[ : , 2:4] = y_test[ : , 2:4] + (y_test_6[ : , 2:4] - y_test[ : , 2:4])*14/19
+    print ("y_test_6[ran]:" , y_test_6[ran])
+
+    y_test_7 = np.ones([264,4])
+    y_test_7[ : , 0:2] = y_test[ : , 0:2] * 6/19
+    y_test_7[ : , 2:4] = y_test[ : , 2:4] + (y_test_7[ : , 2:4] - y_test[ : , 2:4])*13/19
+    print ("y_test_7[ran]:" , y_test_7[ran])
+
+    y_test_8 = np.ones([264,4])
+    y_test_8[ : , 0:2] = y_test[ : , 0:2] * 7/19
+    y_test_8[ : , 2:4] = y_test[ : , 2:4] + (y_test_8[ : , 2:4] - y_test[ : , 2:4])*12/19
+    print ("y_test_8[ran]:" , y_test_8[ran])
+
+    y_test_9 = np.ones([264,4])
+    y_test_9[ : , 0:2] = y_test[ : , 0:2] * 8/19
+    y_test_9[ : , 2:4] = y_test[ : , 2:4] + (y_test_9[ : , 2:4] - y_test[ : , 2:4])*11/19
+    print ("y_test_9[ran]:" , y_test_9[ran])
+
+    y_test_10 = np.ones([264,4])
+    y_test_10[ : , 0:2] = y_test[ : , 0:2] * 9/19
+    y_test_10[ : , 2:4] = y_test[ : , 2:4] + (y_test_10[ : , 2:4] - y_test[ : , 2:4])*10/19
+    print ("y_test_10[ran]:" , y_test_10[ran])
+
+    y_test_11 = np.ones([264,4])
+    y_test_11[ : , 0:2] = y_test[ : , 0:2] * 10/19
+    y_test_11[ : , 2:4] = y_test[ : , 2:4] + (y_test_11[ : , 2:4] - y_test[ : , 2:4])*9/19
+    print ("y_test_11[ran]:" , y_test_11[ran])
+
+    y_test_12 = np.ones([264,4])
+    y_test_12[ : , 0:2] = y_test[ : , 0:2] * 11/19
+    y_test_12[ : , 2:4] = y_test[ : , 2:4] + (y_test_12[ : , 2:4] - y_test[ : , 2:4])*8/19
+    print ("y_test_12[ran]:" , y_test_12[ran])
+
+    y_test_13 = np.ones([264,4])
+    y_test_13[ : , 0:2] = y_test[ : , 0:2] * 12/19
+    y_test_13[ : , 2:4] = y_test[ : , 2:4] + (y_test_13[ : , 2:4] - y_test[ : , 2:4])*7/19
+    print ("y_test_13[ran]:" , y_test_13[ran])
+
+    y_test_14 = np.ones([264,4])
+    y_test_14[ : , 0:2] = y_test[ : , 0:2] * 13/19
+    y_test_14[ : , 2:4] = y_test[ : , 2:4] + (y_test_14[ : , 2:4] - y_test[ : , 2:4])*6/19
+    print ("y_test_14[ran]:" , y_test_14[ran])
+
+    y_test_15 = np.ones([264,4])
+    y_test_15[ : , 0:2] = y_test[ : , 0:2] * 14/19
+    y_test_15[ : , 2:4] = y_test[ : , 2:4] + (y_test_15[ : , 2:4] - y_test[ : , 2:4])*5/19
+    print ("y_test_15[ran]:" , y_test_15[ran])
+
+    y_test_16 = np.ones([264,4])
+    y_test_16[ : , 0:2] = y_test[ : , 0:2] * 15/19
+    y_test_16[ : , 2:4] = y_test[ : , 2:4] + (y_test_16[ : , 2:4] - y_test[ : , 2:4])*4/19
+    print ("y_test_16[ran]:" , y_test_16[ran])
+
+    y_test_17 = np.ones([264,4])
+    y_test_17[ : , 0:2] = y_test[ : , 0:2] * 16/19
+    y_test_17[ : , 2:4] = y_test[ : , 2:4] + (y_test_17[ : , 2:4] - y_test[ : , 2:4])*3/19
+    print ("y_test_17[ran]:" , y_test_17[ran])
+
+    y_test_18 = np.ones([264,4])
+    y_test_18[ : , 0:2] = y_test[ : , 0:2] * 17/19
+    y_test_18[ : , 2:4] = y_test[ : , 2:4] + (y_test_18[ : , 2:4] - y_test[ : , 2:4])*2/19
+    print ("y_test_18[ran]:" , y_test_18[ran])
+
+    y_test_19 = np.ones([264,4])
+    y_test_19[ : , 0:2] = y_test[ : , 0:2] * 18/19
+    y_test_19[ : , 2:4] = y_test[ : , 2:4] + (y_test_19[ : , 2:4] - y_test[ : , 2:4])*1/19
+    print ("y_test_19[ran]:" , y_test_19[ran])
+
+    print ("y_test[ran]:" , y_test[ran])
 
     earlystopper = EarlyStopping(patience=5, verbose=1)
     checkpointer = ModelCheckpoint(
