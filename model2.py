@@ -358,18 +358,61 @@ dense_output = Dense(4, name='dense_output')(dense128)
 #outputs = concatenate([cnn_outputs , rnn_outputs])
 
 
-def calculate_iou(target_boxes, pred_boxes):
-    yA = K.maximum(target_boxes[..., 0], pred_boxes[..., 0])  # yA
-    xA = K.maximum(target_boxes[..., 1], pred_boxes[..., 1])  # xA
-    yB = K.minimum(target_boxes[..., 2], pred_boxes[..., 2])  # yB
-    xB = K.minimum(target_boxes[..., 3], pred_boxes[..., 3])  # xB
-    interArea = K.maximum(0.0, yB - yA) * K.maximum(0.0, xB - xA)
-    boxAArea = (target_boxes[..., 2] - target_boxes[..., 0]) * \
-        (target_boxes[..., 3] - target_boxes[..., 1])
-    boxBArea = (pred_boxes[..., 2] - pred_boxes[..., 0]) * \
-        (pred_boxes[..., 3] - pred_boxes[..., 1])
-    iou = interArea / (boxAArea + boxBArea - interArea)
-    return iou
+# def calculate_iou(target_boxes, pred_boxes):
+#     yA = K.maximum(target_boxes[..., 0], pred_boxes[..., 0])  # yA
+#     xA = K.maximum(target_boxes[..., 1], pred_boxes[..., 1])  # xA
+#     yB = K.minimum(target_boxes[..., 2], pred_boxes[..., 2])  # yB
+#     xB = K.minimum(target_boxes[..., 3], pred_boxes[..., 3])  # xB
+#     interArea = K.maximum(0.0, yB - yA) * K.maximum(0.0, xB - xA)
+#     boxAArea = (target_boxes[..., 2] - target_boxes[..., 0]) * \
+#         (target_boxes[..., 3] - target_boxes[..., 1])
+#     boxBArea = (pred_boxes[..., 2] - pred_boxes[..., 0]) * \
+#         (pred_boxes[..., 3] - pred_boxes[..., 1])
+#     iou = interArea / (boxAArea + boxBArea - interArea)
+#     return iou
+
+def calculate_iou(boxes1, boxes2):
+    '''
+    计算giou = iou - (C-AUB)/C
+    :param boxes1: (8, 13, 13, 3, 4)   pred_xywh
+    :param boxes2: (8, 13, 13, 3, 4)   label_xywh
+    :return:
+    '''
+    boxes1_x0y0x1y1 = boxes1
+    boxes2_x0y0x1y1 = boxes2
+    '''
+    逐个位置比较boxes1_x0y0x1y1[..., :2]和boxes1_x0y0x1y1[..., 2:]，即逐个位置比较[x0, y0]和[x1, y1]，小的留下。
+    比如留下了[x0, y0]
+    这一步是为了避免一开始w h 是负数，导致x0y0成了右下角坐标，x1y1成了左上角坐标。
+    '''
+    boxes1_x0y0x1y1 = tf.concat([tf.minimum(boxes1_x0y0x1y1[..., :2], boxes1_x0y0x1y1[..., 2:]),
+                                 tf.maximum(boxes1_x0y0x1y1[..., :2], boxes1_x0y0x1y1[..., 2:])], axis=-1)
+    boxes2_x0y0x1y1 = tf.concat([tf.minimum(boxes2_x0y0x1y1[..., :2], boxes2_x0y0x1y1[..., 2:]),
+                                 tf.maximum(boxes2_x0y0x1y1[..., :2], boxes2_x0y0x1y1[..., 2:])], axis=-1)
+
+    # 两个矩形的面积
+    boxes1_area = (boxes1_x0y0x1y1[..., 2] - boxes1_x0y0x1y1[..., 0]) * (boxes1_x0y0x1y1[..., 3] - boxes1_x0y0x1y1[..., 1])
+    boxes2_area = (boxes2_x0y0x1y1[..., 2] - boxes2_x0y0x1y1[..., 0]) * (boxes2_x0y0x1y1[..., 3] - boxes2_x0y0x1y1[..., 1])
+
+    # 相交矩形的左上角坐标、右下角坐标，shape 都是 (8, 13, 13, 3, 2)
+    left_up = tf.maximum(boxes1_x0y0x1y1[..., :2], boxes2_x0y0x1y1[..., :2])
+    right_down = tf.minimum(boxes1_x0y0x1y1[..., 2:], boxes2_x0y0x1y1[..., 2:])
+
+    # 相交矩形的面积inter_area。iou
+    inter_section = tf.maximum(right_down - left_up, 0.0)
+    inter_area = inter_section[..., 0] * inter_section[..., 1]
+    union_area = boxes1_area + boxes2_area - inter_area
+    iou = inter_area / union_area
+
+    # 包围矩形的左上角坐标、右下角坐标，shape 都是 (8, 13, 13, 3, 2)
+    enclose_left_up = tf.minimum(boxes1_x0y0x1y1[..., :2], boxes2_x0y0x1y1[..., :2])
+    enclose_right_down = tf.maximum(boxes1_x0y0x1y1[..., 2:], boxes2_x0y0x1y1[..., 2:])
+
+    enclose = tf.maximum(enclose_right_down - enclose_left_up, 0.0)
+    enclose_area = enclose[..., 0] * enclose[..., 1]
+    giou = iou - 1.0 * (enclose_area - union_area) / enclose_area
+    return giou
+
 
 def custom_loss(y_true, y_pred):
     mse = tf.losses.mean_squared_error(y_true, y_pred)
@@ -377,168 +420,6 @@ def custom_loss(y_true, y_pred):
     return mse + (1 - iou)
     # giou = bbox_giou(y_true, y_pred)
     # return mse + (1 - giou)
-
-# def custom_loss_rt2(y_true, y_pred):
-#     #coarse-to-fine coordinates
-#     np1 = np.array([1,1,1,1])
-#     y_true2 = y_true + (np1 - y_true)*18/19
-#     #new MSE and IOU
-#     mse = tf.losses.mean_squared_error(y_true2, y_pred)
-#     iou = calculate_iou(y_true2, y_pred)
-#     return mse + (1 - iou)
-
-# def custom_loss_rt3(y_true, y_pred):
-#     #coarse-to-fine coordinates
-#     np1 = np.array([1,1,1,1])
-#     y_true3 = y_true + (np1 - y_true)*17/19
-#     #new MSE and IOU
-#     mse = tf.losses.mean_squared_error(y_true3, y_pred)
-#     iou = calculate_iou(y_true3, y_pred)
-#     return mse + (1 - iou)
-
-# def custom_loss_rt4(y_true, y_pred):
-#     #coarse-to-fine coordinates
-#     np1 = np.array([1,1,1,1])
-#     y_true4 = y_true + (np1 - y_true)*16/19
-#     #new MSE and IOU
-#     mse = tf.losses.mean_squared_error(y_true4, y_pred)
-#     iou = calculate_iou(y_true4, y_pred)
-#     return mse + (1 - iou)
-
-# def custom_loss_rt5(y_true, y_pred):
-#     #coarse-to-fine coordinates
-#     np1 = np.array([1,1,1,1])
-#     y_true5 = y_true + (np1 - y_true)*15/19
-#     #new MSE and IOU
-#     mse = tf.losses.mean_squared_error(y_true5, y_pred)
-#     iou = calculate_iou(y_true5, y_pred)
-#     return mse + (1 - iou)
-
-# def custom_loss_rt6(y_true, y_pred):
-#     #coarse-to-fine coordinates
-#     np1 = np.array([1,1,1,1])
-#     y_true6 = y_true + (np1 - y_true)*14/19
-#     #new MSE and IOU
-#     mse = tf.losses.mean_squared_error(y_true6, y_pred)
-#     iou = calculate_iou(y_true6, y_pred)
-#     return mse + (1 - iou)
-
-# def custom_loss_rt7(y_true, y_pred):
-#     #coarse-to-fine coordinates
-#     np1 = np.array([1,1,1,1])
-#     y_true7 = y_true + (np1 - y_true)*13/19
-#     #new MSE and IOU
-#     mse = tf.losses.mean_squared_error(y_true7, y_pred)
-#     iou = calculate_iou(y_true7, y_pred)
-#     return mse + (1 - iou)
-
-# def custom_loss_rt8(y_true, y_pred):
-#     #coarse-to-fine coordinates
-#     np1 = np.array([1,1,1,1])
-#     y_true8 = y_true + (np1 - y_true)*12/19
-#     #new MSE and IOU
-#     mse = tf.losses.mean_squared_error(y_true8, y_pred)
-#     iou = calculate_iou(y_true8, y_pred)
-#     return mse + (1 - iou)
-
-# def custom_loss_rt9(y_true, y_pred):
-#     #coarse-to-fine coordinates
-#     np1 = np.array([1,1,1,1])
-#     y_true9 = y_true + (np1 - y_true)*11/19
-#     #new MSE and IOU
-#     mse = tf.losses.mean_squared_error(y_true9, y_pred)
-#     iou = calculate_iou(y_true9, y_pred)
-#     return mse + (1 - iou)
-
-# def custom_loss_rt10(y_true, y_pred):
-#     #coarse-to-fine coordinates
-#     np1 = np.array([1,1,1,1])
-#     y_true10 = y_true + (np1 - y_true)*10/19
-#     #new MSE and IOU
-#     mse = tf.losses.mean_squared_error(y_true10, y_pred)
-#     iou = calculate_iou(y_true10, y_pred)
-#     return mse + (1 - iou)
-
-# def custom_loss_rt11(y_true, y_pred):
-#     #coarse-to-fine coordinates
-#     np1 = np.array([1,1,1,1])
-#     y_true11 = y_true + (np1 - y_true)*9/19
-#     #new MSE and IOU
-#     mse = tf.losses.mean_squared_error(y_true11, y_pred)
-#     iou = calculate_iou(y_true11, y_pred)
-#     return mse + (1 - iou)
-
-# def custom_loss_rt12(y_true, y_pred):
-#     #coarse-to-fine coordinates
-#     np1 = np.array([1,1,1,1])
-#     y_true12 = y_true + (np1 - y_true)*8/19
-#     #new MSE and IOU
-#     mse = tf.losses.mean_squared_error(y_true12, y_pred)
-#     iou = calculate_iou(y_true12, y_pred)
-#     return mse + (1 - iou)
-
-# def custom_loss_rt13(y_true, y_pred):
-#     #coarse-to-fine coordinates
-#     np1 = np.array([1,1,1,1])
-#     y_true13 = y_true + (np1 - y_true)*7/19
-#     #new MSE and IOU
-#     mse = tf.losses.mean_squared_error(y_true13, y_pred)
-#     iou = calculate_iou(y_true13, y_pred)
-#     return mse + (1 - iou)
-
-# def custom_loss_rt14(y_true, y_pred):
-#     #coarse-to-fine coordinates
-#     np1 = np.array([1,1,1,1])
-#     y_true14 = y_true + (np1 - y_true)*6/19
-#     #new MSE and IOU
-#     mse = tf.losses.mean_squared_error(y_true14, y_pred)
-#     iou = calculate_iou(y_true14, y_pred)
-#     return mse + (1 - iou)
-
-# def custom_loss_rt15(y_true, y_pred):
-#     #coarse-to-fine coordinates
-#     np1 = np.array([1,1,1,1])
-#     y_true15 = y_true + (np1 - y_true)*5/19
-#     #new MSE and IOU
-#     mse = tf.losses.mean_squared_error(y_true15, y_pred)
-#     iou = calculate_iou(y_true15, y_pred)
-#     return mse + (1 - iou)
-
-# def custom_loss_rt16(y_true, y_pred):
-#     #coarse-to-fine coordinates
-#     np1 = np.array([1,1,1,1])
-#     y_true16 = y_true + (np1 - y_true)*4/19
-#     #new MSE and IOU
-#     mse = tf.losses.mean_squared_error(y_true16, y_pred)
-#     iou = calculate_iou(y_true16, y_pred)
-#     return mse + (1 - iou)
-
-# def custom_loss_rt17(y_true, y_pred):
-#     #coarse-to-fine coordinates
-#     np1 = np.array([1,1,1,1])
-#     y_true17 = y_true + (np1 - y_true)*3/19
-#     #new MSE and IOU
-#     mse = tf.losses.mean_squared_error(y_true17, y_pred)
-#     iou = calculate_iou(y_true17, y_pred)
-#     return mse + (1 - iou)
-
-# def custom_loss_rt18(y_true, y_pred):
-#     #coarse-to-fine coordinates
-#     np1 = np.array([1,1,1,1])
-#     y_true18 = y_true + (np1 - y_true)*2/19
-#     #new MSE and IOU
-#     mse = tf.losses.mean_squared_error(y_true18, y_pred)
-#     iou = calculate_iou(y_true18, y_pred)
-#     return mse + (1 - iou)
-
-# def custom_loss_rt19(y_true, y_pred):
-#     #coarse-to-fine coordinates
-#     np1 = np.array([1,1,1,1])
-#     y_true19 = y_true + (np1 - y_true)*1/19
-#     #new MSE and IOU
-#     mse = tf.losses.mean_squared_error(y_true19, y_pred)
-#     iou = calculate_iou(y_true19, y_pred)
-#     return mse + (1 - iou)
 
 def mse(y_true, y_pred):
     mse = tf.losses.mean_squared_error(y_true, y_pred)
@@ -781,9 +662,6 @@ elif (Next == 'predict'):
     shutil.rmtree('test')  
     os.mkdir('test') 
     model.load_weights(modelsavepath, by_name=True)
-    # for i in range(1,10):
-    #     testimgpath = r'/home/smf/hanxu/cu/cucumber_'+str(i)+'.jpg'
-    #     testannotations_paths = r'/home/smf/hanxu/cu/cucumber_'+str(i)+'.xml'
 
     test_image_paths = sorted(glob.glob(imgpath))
     test_annotations_paths = sorted(glob.glob(annotations_paths))

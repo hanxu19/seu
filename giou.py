@@ -1,6 +1,6 @@
 import tensorflow as tf
 
-def bbox_giou(boxes1, boxes2):
+def giou(boxes1, boxes2):
     '''
     计算giou = iou - (C-AUB)/C
     :param boxes1: (8, 13, 13, 3, 4)   pred_xywh
