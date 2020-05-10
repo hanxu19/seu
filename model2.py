@@ -578,11 +578,10 @@ print ("y_test :" , y_test.shape )
 test_number = y_test.shape[0]
 
 # train or predict
-Next = 'train'
+Next = 'predict'
 if (Next == 'train'):
     
     ran = 3
-    # np1 = np.array([1,1,1,1])
 
     y_train_2 = np.ones([train_number,4]) 
     y_train_2[ : , 0:2] = y_train[ : , 0:2] * 1/19
