@@ -378,167 +378,167 @@ def custom_loss(y_true, y_pred):
     # giou = bbox_giou(y_true, y_pred)
     # return mse + (1 - giou)
 
-def custom_loss_rt2(y_true, y_pred):
-    #coarse-to-fine coordinates
-    np1 = np.array([1,1,1,1])
-    y_true2 = y_true + (np1 - y_true)*18/19
-    #new MSE and IOU
-    mse = tf.losses.mean_squared_error(y_true2, y_pred)
-    iou = calculate_iou(y_true2, y_pred)
-    return mse + (1 - iou)
+# def custom_loss_rt2(y_true, y_pred):
+#     #coarse-to-fine coordinates
+#     np1 = np.array([1,1,1,1])
+#     y_true2 = y_true + (np1 - y_true)*18/19
+#     #new MSE and IOU
+#     mse = tf.losses.mean_squared_error(y_true2, y_pred)
+#     iou = calculate_iou(y_true2, y_pred)
+#     return mse + (1 - iou)
 
-def custom_loss_rt3(y_true, y_pred):
-    #coarse-to-fine coordinates
-    np1 = np.array([1,1,1,1])
-    y_true3 = y_true + (np1 - y_true)*17/19
-    #new MSE and IOU
-    mse = tf.losses.mean_squared_error(y_true3, y_pred)
-    iou = calculate_iou(y_true3, y_pred)
-    return mse + (1 - iou)
+# def custom_loss_rt3(y_true, y_pred):
+#     #coarse-to-fine coordinates
+#     np1 = np.array([1,1,1,1])
+#     y_true3 = y_true + (np1 - y_true)*17/19
+#     #new MSE and IOU
+#     mse = tf.losses.mean_squared_error(y_true3, y_pred)
+#     iou = calculate_iou(y_true3, y_pred)
+#     return mse + (1 - iou)
 
-def custom_loss_rt4(y_true, y_pred):
-    #coarse-to-fine coordinates
-    np1 = np.array([1,1,1,1])
-    y_true4 = y_true + (np1 - y_true)*16/19
-    #new MSE and IOU
-    mse = tf.losses.mean_squared_error(y_true4, y_pred)
-    iou = calculate_iou(y_true4, y_pred)
-    return mse + (1 - iou)
+# def custom_loss_rt4(y_true, y_pred):
+#     #coarse-to-fine coordinates
+#     np1 = np.array([1,1,1,1])
+#     y_true4 = y_true + (np1 - y_true)*16/19
+#     #new MSE and IOU
+#     mse = tf.losses.mean_squared_error(y_true4, y_pred)
+#     iou = calculate_iou(y_true4, y_pred)
+#     return mse + (1 - iou)
 
-def custom_loss_rt5(y_true, y_pred):
-    #coarse-to-fine coordinates
-    np1 = np.array([1,1,1,1])
-    y_true5 = y_true + (np1 - y_true)*15/19
-    #new MSE and IOU
-    mse = tf.losses.mean_squared_error(y_true5, y_pred)
-    iou = calculate_iou(y_true5, y_pred)
-    return mse + (1 - iou)
+# def custom_loss_rt5(y_true, y_pred):
+#     #coarse-to-fine coordinates
+#     np1 = np.array([1,1,1,1])
+#     y_true5 = y_true + (np1 - y_true)*15/19
+#     #new MSE and IOU
+#     mse = tf.losses.mean_squared_error(y_true5, y_pred)
+#     iou = calculate_iou(y_true5, y_pred)
+#     return mse + (1 - iou)
 
-def custom_loss_rt6(y_true, y_pred):
-    #coarse-to-fine coordinates
-    np1 = np.array([1,1,1,1])
-    y_true6 = y_true + (np1 - y_true)*14/19
-    #new MSE and IOU
-    mse = tf.losses.mean_squared_error(y_true6, y_pred)
-    iou = calculate_iou(y_true6, y_pred)
-    return mse + (1 - iou)
+# def custom_loss_rt6(y_true, y_pred):
+#     #coarse-to-fine coordinates
+#     np1 = np.array([1,1,1,1])
+#     y_true6 = y_true + (np1 - y_true)*14/19
+#     #new MSE and IOU
+#     mse = tf.losses.mean_squared_error(y_true6, y_pred)
+#     iou = calculate_iou(y_true6, y_pred)
+#     return mse + (1 - iou)
 
-def custom_loss_rt7(y_true, y_pred):
-    #coarse-to-fine coordinates
-    np1 = np.array([1,1,1,1])
-    y_true7 = y_true + (np1 - y_true)*13/19
-    #new MSE and IOU
-    mse = tf.losses.mean_squared_error(y_true7, y_pred)
-    iou = calculate_iou(y_true7, y_pred)
-    return mse + (1 - iou)
+# def custom_loss_rt7(y_true, y_pred):
+#     #coarse-to-fine coordinates
+#     np1 = np.array([1,1,1,1])
+#     y_true7 = y_true + (np1 - y_true)*13/19
+#     #new MSE and IOU
+#     mse = tf.losses.mean_squared_error(y_true7, y_pred)
+#     iou = calculate_iou(y_true7, y_pred)
+#     return mse + (1 - iou)
 
-def custom_loss_rt8(y_true, y_pred):
-    #coarse-to-fine coordinates
-    np1 = np.array([1,1,1,1])
-    y_true8 = y_true + (np1 - y_true)*12/19
-    #new MSE and IOU
-    mse = tf.losses.mean_squared_error(y_true8, y_pred)
-    iou = calculate_iou(y_true8, y_pred)
-    return mse + (1 - iou)
+# def custom_loss_rt8(y_true, y_pred):
+#     #coarse-to-fine coordinates
+#     np1 = np.array([1,1,1,1])
+#     y_true8 = y_true + (np1 - y_true)*12/19
+#     #new MSE and IOU
+#     mse = tf.losses.mean_squared_error(y_true8, y_pred)
+#     iou = calculate_iou(y_true8, y_pred)
+#     return mse + (1 - iou)
 
-def custom_loss_rt9(y_true, y_pred):
-    #coarse-to-fine coordinates
-    np1 = np.array([1,1,1,1])
-    y_true9 = y_true + (np1 - y_true)*11/19
-    #new MSE and IOU
-    mse = tf.losses.mean_squared_error(y_true9, y_pred)
-    iou = calculate_iou(y_true9, y_pred)
-    return mse + (1 - iou)
+# def custom_loss_rt9(y_true, y_pred):
+#     #coarse-to-fine coordinates
+#     np1 = np.array([1,1,1,1])
+#     y_true9 = y_true + (np1 - y_true)*11/19
+#     #new MSE and IOU
+#     mse = tf.losses.mean_squared_error(y_true9, y_pred)
+#     iou = calculate_iou(y_true9, y_pred)
+#     return mse + (1 - iou)
 
-def custom_loss_rt10(y_true, y_pred):
-    #coarse-to-fine coordinates
-    np1 = np.array([1,1,1,1])
-    y_true10 = y_true + (np1 - y_true)*10/19
-    #new MSE and IOU
-    mse = tf.losses.mean_squared_error(y_true10, y_pred)
-    iou = calculate_iou(y_true10, y_pred)
-    return mse + (1 - iou)
+# def custom_loss_rt10(y_true, y_pred):
+#     #coarse-to-fine coordinates
+#     np1 = np.array([1,1,1,1])
+#     y_true10 = y_true + (np1 - y_true)*10/19
+#     #new MSE and IOU
+#     mse = tf.losses.mean_squared_error(y_true10, y_pred)
+#     iou = calculate_iou(y_true10, y_pred)
+#     return mse + (1 - iou)
 
-def custom_loss_rt11(y_true, y_pred):
-    #coarse-to-fine coordinates
-    np1 = np.array([1,1,1,1])
-    y_true11 = y_true + (np1 - y_true)*9/19
-    #new MSE and IOU
-    mse = tf.losses.mean_squared_error(y_true11, y_pred)
-    iou = calculate_iou(y_true11, y_pred)
-    return mse + (1 - iou)
+# def custom_loss_rt11(y_true, y_pred):
+#     #coarse-to-fine coordinates
+#     np1 = np.array([1,1,1,1])
+#     y_true11 = y_true + (np1 - y_true)*9/19
+#     #new MSE and IOU
+#     mse = tf.losses.mean_squared_error(y_true11, y_pred)
+#     iou = calculate_iou(y_true11, y_pred)
+#     return mse + (1 - iou)
 
-def custom_loss_rt12(y_true, y_pred):
-    #coarse-to-fine coordinates
-    np1 = np.array([1,1,1,1])
-    y_true12 = y_true + (np1 - y_true)*8/19
-    #new MSE and IOU
-    mse = tf.losses.mean_squared_error(y_true12, y_pred)
-    iou = calculate_iou(y_true12, y_pred)
-    return mse + (1 - iou)
+# def custom_loss_rt12(y_true, y_pred):
+#     #coarse-to-fine coordinates
+#     np1 = np.array([1,1,1,1])
+#     y_true12 = y_true + (np1 - y_true)*8/19
+#     #new MSE and IOU
+#     mse = tf.losses.mean_squared_error(y_true12, y_pred)
+#     iou = calculate_iou(y_true12, y_pred)
+#     return mse + (1 - iou)
 
-def custom_loss_rt13(y_true, y_pred):
-    #coarse-to-fine coordinates
-    np1 = np.array([1,1,1,1])
-    y_true13 = y_true + (np1 - y_true)*7/19
-    #new MSE and IOU
-    mse = tf.losses.mean_squared_error(y_true13, y_pred)
-    iou = calculate_iou(y_true13, y_pred)
-    return mse + (1 - iou)
+# def custom_loss_rt13(y_true, y_pred):
+#     #coarse-to-fine coordinates
+#     np1 = np.array([1,1,1,1])
+#     y_true13 = y_true + (np1 - y_true)*7/19
+#     #new MSE and IOU
+#     mse = tf.losses.mean_squared_error(y_true13, y_pred)
+#     iou = calculate_iou(y_true13, y_pred)
+#     return mse + (1 - iou)
 
-def custom_loss_rt14(y_true, y_pred):
-    #coarse-to-fine coordinates
-    np1 = np.array([1,1,1,1])
-    y_true14 = y_true + (np1 - y_true)*6/19
-    #new MSE and IOU
-    mse = tf.losses.mean_squared_error(y_true14, y_pred)
-    iou = calculate_iou(y_true14, y_pred)
-    return mse + (1 - iou)
+# def custom_loss_rt14(y_true, y_pred):
+#     #coarse-to-fine coordinates
+#     np1 = np.array([1,1,1,1])
+#     y_true14 = y_true + (np1 - y_true)*6/19
+#     #new MSE and IOU
+#     mse = tf.losses.mean_squared_error(y_true14, y_pred)
+#     iou = calculate_iou(y_true14, y_pred)
+#     return mse + (1 - iou)
 
-def custom_loss_rt15(y_true, y_pred):
-    #coarse-to-fine coordinates
-    np1 = np.array([1,1,1,1])
-    y_true15 = y_true + (np1 - y_true)*5/19
-    #new MSE and IOU
-    mse = tf.losses.mean_squared_error(y_true15, y_pred)
-    iou = calculate_iou(y_true15, y_pred)
-    return mse + (1 - iou)
+# def custom_loss_rt15(y_true, y_pred):
+#     #coarse-to-fine coordinates
+#     np1 = np.array([1,1,1,1])
+#     y_true15 = y_true + (np1 - y_true)*5/19
+#     #new MSE and IOU
+#     mse = tf.losses.mean_squared_error(y_true15, y_pred)
+#     iou = calculate_iou(y_true15, y_pred)
+#     return mse + (1 - iou)
 
-def custom_loss_rt16(y_true, y_pred):
-    #coarse-to-fine coordinates
-    np1 = np.array([1,1,1,1])
-    y_true16 = y_true + (np1 - y_true)*4/19
-    #new MSE and IOU
-    mse = tf.losses.mean_squared_error(y_true16, y_pred)
-    iou = calculate_iou(y_true16, y_pred)
-    return mse + (1 - iou)
+# def custom_loss_rt16(y_true, y_pred):
+#     #coarse-to-fine coordinates
+#     np1 = np.array([1,1,1,1])
+#     y_true16 = y_true + (np1 - y_true)*4/19
+#     #new MSE and IOU
+#     mse = tf.losses.mean_squared_error(y_true16, y_pred)
+#     iou = calculate_iou(y_true16, y_pred)
+#     return mse + (1 - iou)
 
-def custom_loss_rt17(y_true, y_pred):
-    #coarse-to-fine coordinates
-    np1 = np.array([1,1,1,1])
-    y_true17 = y_true + (np1 - y_true)*3/19
-    #new MSE and IOU
-    mse = tf.losses.mean_squared_error(y_true17, y_pred)
-    iou = calculate_iou(y_true17, y_pred)
-    return mse + (1 - iou)
+# def custom_loss_rt17(y_true, y_pred):
+#     #coarse-to-fine coordinates
+#     np1 = np.array([1,1,1,1])
+#     y_true17 = y_true + (np1 - y_true)*3/19
+#     #new MSE and IOU
+#     mse = tf.losses.mean_squared_error(y_true17, y_pred)
+#     iou = calculate_iou(y_true17, y_pred)
+#     return mse + (1 - iou)
 
-def custom_loss_rt18(y_true, y_pred):
-    #coarse-to-fine coordinates
-    np1 = np.array([1,1,1,1])
-    y_true18 = y_true + (np1 - y_true)*2/19
-    #new MSE and IOU
-    mse = tf.losses.mean_squared_error(y_true18, y_pred)
-    iou = calculate_iou(y_true18, y_pred)
-    return mse + (1 - iou)
+# def custom_loss_rt18(y_true, y_pred):
+#     #coarse-to-fine coordinates
+#     np1 = np.array([1,1,1,1])
+#     y_true18 = y_true + (np1 - y_true)*2/19
+#     #new MSE and IOU
+#     mse = tf.losses.mean_squared_error(y_true18, y_pred)
+#     iou = calculate_iou(y_true18, y_pred)
+#     return mse + (1 - iou)
 
-def custom_loss_rt19(y_true, y_pred):
-    #coarse-to-fine coordinates
-    np1 = np.array([1,1,1,1])
-    y_true19 = y_true + (np1 - y_true)*1/19
-    #new MSE and IOU
-    mse = tf.losses.mean_squared_error(y_true19, y_pred)
-    iou = calculate_iou(y_true19, y_pred)
-    return mse + (1 - iou)
+# def custom_loss_rt19(y_true, y_pred):
+#     #coarse-to-fine coordinates
+#     np1 = np.array([1,1,1,1])
+#     y_true19 = y_true + (np1 - y_true)*1/19
+#     #new MSE and IOU
+#     mse = tf.losses.mean_squared_error(y_true19, y_pred)
+#     iou = calculate_iou(y_true19, y_pred)
+#     return mse + (1 - iou)
 
 def mse(y_true, y_pred):
     mse = tf.losses.mean_squared_error(y_true, y_pred)
@@ -572,6 +572,11 @@ loss=[custom_loss,custom_loss,custom_loss,custom_loss,custom_loss,custom_loss,cu
 metrics= [calculate_iou,mse,predict0,predict1,predict2,predict3,true0,true1,true2,true3] )
 #model.summary()
 
+print ("y_train :" , y_train.shape )
+train_number = y_train.shape[0]
+print ("y_test :" , y_test.shape )
+test_number = y_test.shape[0]
+
 # train or predict
 Next = 'train'
 if (Next == 'train'):
@@ -579,92 +584,92 @@ if (Next == 'train'):
     ran = 3
     # np1 = np.array([1,1,1,1])
 
-    y_train_2 = np.ones([264,4]) 
+    y_train_2 = np.ones([train_number,4]) 
     y_train_2[ : , 0:2] = y_train[ : , 0:2] * 1/19
     y_train_2[ : , 2:4] = y_train[ : , 2:4] + (y_train_2[ : , 2:4] - y_train[ : , 2:4])*18/19
     print ("y_train_2[ran]:" , y_train_2[ran])
 
-    y_train_3 = np.ones([264,4]) 
+    y_train_3 = np.ones([train_number,4]) 
     y_train_3[ : , 0:2] = y_train[ : , 0:2] * 2/19
     y_train_3[ : , 2:4] = y_train[ : , 2:4] + (y_train_3[ : , 2:4] - y_train[ : , 2:4])*17/19
     print ("y_train_3[ran]:" , y_train_3[ran])
 
-    y_train_4 = np.ones([264,4]) 
+    y_train_4 = np.ones([train_number,4]) 
     y_train_4[ : , 0:2] = y_train[ : , 0:2] * 3/19
     y_train_4[ : , 2:4] = y_train[ : , 2:4] + (y_train_4[ : , 2:4] - y_train[ : , 2:4])*16/19
     print ("y_train_4[ran]:" , y_train_4[ran])
 
-    y_train_5 = np.ones([264,4]) 
+    y_train_5 = np.ones([train_number,4]) 
     y_train_5[ : , 0:2] = y_train[ : , 0:2] * 4/19
     y_train_5[ : , 2:4] = y_train[ : , 2:4] + (y_train_5[ : , 2:4] - y_train[ : , 2:4])*15/19
     print ("y_train_5[ran]:" , y_train_5[ran])
 
-    y_train_6 = np.ones([264,4]) 
+    y_train_6 = np.ones([train_number,4]) 
     y_train_6[ : , 0:2] = y_train[ : , 0:2] * 5/19
     y_train_6[ : , 2:4] = y_train[ : , 2:4] + (y_train_6[ : , 2:4] - y_train[ : , 2:4])*14/19
     print ("y_train_6[ran]:" , y_train_6[ran])
 
-    y_train_7 = np.ones([264,4]) 
+    y_train_7 = np.ones([train_number,4]) 
     y_train_7[ : , 0:2] = y_train[ : , 0:2] * 6/19
     y_train_7[ : , 2:4] = y_train[ : , 2:4] + (y_train_7[ : , 2:4] - y_train[ : , 2:4])*13/19
     print ("y_train_7[ran]:" , y_train_7[ran])
 
-    y_train_8 = np.ones([264,4]) 
+    y_train_8 = np.ones([train_number,4]) 
     y_train_8[ : , 0:2] = y_train[ : , 0:2] * 7/19
     y_train_8[ : , 2:4] = y_train[ : , 2:4] + (y_train_8[ : , 2:4] - y_train[ : , 2:4])*12/19
     print ("y_train_8[ran]:" , y_train_8[ran])
 
-    y_train_9 = np.ones([264,4]) 
+    y_train_9 = np.ones([train_number,4]) 
     y_train_9[ : , 0:2] = y_train[ : , 0:2] * 8/19
     y_train_9[ : , 2:4] = y_train[ : , 2:4] + (y_train_9[ : , 2:4] - y_train[ : , 2:4])*11/19
     print ("y_train_9[ran]:" , y_train_9[ran])
 
-    y_train_10 = np.ones([264,4]) 
+    y_train_10 = np.ones([train_number,4]) 
     y_train_10[ : , 0:2] = y_train[ : , 0:2] * 9/19
     y_train_10[ : , 2:4] = y_train[ : , 2:4] + (y_train_10[ : , 2:4] - y_train[ : , 2:4])*10/19
     print ("y_train_10[ran]:" , y_train_10[ran])
 
-    y_train_11 = np.ones([264,4]) 
+    y_train_11 = np.ones([train_number,4]) 
     y_train_11[ : , 0:2] = y_train[ : , 0:2] * 10/19
     y_train_11[ : , 2:4] = y_train[ : , 2:4] + (y_train_11[ : , 2:4] - y_train[ : , 2:4])*9/19
     print ("y_train_11[ran]:" , y_train_11[ran])
 
-    y_train_12 = np.ones([264,4]) 
+    y_train_12 = np.ones([train_number,4]) 
     y_train_12[ : , 0:2] = y_train[ : , 0:2] * 11/19
     y_train_12[ : , 2:4] = y_train[ : , 2:4] + (y_train_12[ : , 2:4] - y_train[ : , 2:4])*8/19
     print ("y_train_12[ran]:" , y_train_12[ran])
 
-    y_train_13 = np.ones([264,4]) 
+    y_train_13 = np.ones([train_number,4]) 
     y_train_13[ : , 0:2] = y_train[ : , 0:2] * 12/19
     y_train_13[ : , 2:4] = y_train[ : , 2:4] + (y_train_13[ : , 2:4] - y_train[ : , 2:4])*7/19
     print ("y_train_13[ran]:" , y_train_13[ran])
 
-    y_train_14 = np.ones([264,4]) 
+    y_train_14 = np.ones([train_number,4]) 
     y_train_14[ : , 0:2] = y_train[ : , 0:2] * 13/19
     y_train_14[ : , 2:4] = y_train[ : , 2:4] + (y_train_14[ : , 2:4] - y_train[ : , 2:4])*6/19
     print ("y_train_14[ran]:" , y_train_14[ran])
 
-    y_train_15 = np.ones([264,4]) 
+    y_train_15 = np.ones([train_number,4]) 
     y_train_15[ : , 0:2] = y_train[ : , 0:2] * 14/19
     y_train_15[ : , 2:4] = y_train[ : , 2:4] + (y_train_15[ : , 2:4] - y_train[ : , 2:4])*5/19
     print ("y_train_15[ran]:" , y_train_15[ran])
 
-    y_train_16 = np.ones([264,4]) 
+    y_train_16 = np.ones([train_number,4]) 
     y_train_16[ : , 0:2] = y_train[ : , 0:2] * 15/19
     y_train_16[ : , 2:4] = y_train[ : , 2:4] + (y_train_16[ : , 2:4] - y_train[ : , 2:4])*4/19
     print ("y_train_16[ran]:" , y_train_16[ran])
 
-    y_train_17 = np.ones([264,4]) 
+    y_train_17 = np.ones([train_number,4]) 
     y_train_17[ : , 0:2] = y_train[ : , 0:2] * 16/19
     y_train_17[ : , 2:4] = y_train[ : , 2:4] + (y_train_17[ : , 2:4] - y_train[ : , 2:4])*3/19
     print ("y_train_17[ran]:" , y_train_17[ran])
 
-    y_train_18 = np.ones([264,4]) 
+    y_train_18 = np.ones([train_number,4]) 
     y_train_18[ : , 0:2] = y_train[ : , 0:2] * 17/19
     y_train_18[ : , 2:4] = y_train[ : , 2:4] + (y_train_18[ : , 2:4] - y_train[ : , 2:4])*2/19
     print ("y_train_18[ran]:" , y_train_18[ran])
 
-    y_train_19 = np.ones([264,4]) 
+    y_train_19 = np.ones([train_number,4]) 
     y_train_19[ : , 0:2] = y_train[ : , 0:2] * 18/19
     y_train_19[ : , 2:4] = y_train[ : , 2:4] + (y_train_19[ : , 2:4] - y_train[ : , 2:4])*1/19
     print ("y_train_19[ran]:" , y_train_19[ran])
@@ -672,92 +677,92 @@ if (Next == 'train'):
     print ("y_train[ran]:" , y_train[ran])
     
 
-    y_test_2 = np.ones([264,4])
+    y_test_2 = np.ones([test_number,4])
     y_test_2[ : , 0:2] = y_test[ : , 0:2] * 1/19
     y_test_2[ : , 2:4] = y_test[ : , 2:4] + (y_test_2[ : , 2:4] - y_test[ : , 2:4])*18/19
     print ("y_test_2[ran]:" , y_test_2[ran])
 
-    y_test_3 = np.ones([264,4])
+    y_test_3 = np.ones([test_number,4])
     y_test_3[ : , 0:2] = y_test[ : , 0:2] * 2/19
     y_test_3[ : , 2:4] = y_test[ : , 2:4] + (y_test_3[ : , 2:4] - y_test[ : , 2:4])*17/19
     print ("y_test_3[ran]:" , y_test_3[ran])
 
-    y_test_4 = np.ones([264,4])
+    y_test_4 = np.ones([test_number,4])
     y_test_4[ : , 0:2] = y_test[ : , 0:2] * 3/19
     y_test_4[ : , 2:4] = y_test[ : , 2:4] + (y_test_4[ : , 2:4] - y_test[ : , 2:4])*16/19
     print ("y_test_4[ran]:" , y_test_4[ran])
 
-    y_test_5 = np.ones([264,4])
+    y_test_5 = np.ones([test_number,4])
     y_test_5[ : , 0:2] = y_test[ : , 0:2] * 4/19
     y_test_5[ : , 2:4] = y_test[ : , 2:4] + (y_test_5[ : , 2:4] - y_test[ : , 2:4])*15/19
     print ("y_test_5[ran]:" , y_test_5[ran])
 
-    y_test_6 = np.ones([264,4])
+    y_test_6 = np.ones([test_number,4])
     y_test_6[ : , 0:2] = y_test[ : , 0:2] * 5/19
     y_test_6[ : , 2:4] = y_test[ : , 2:4] + (y_test_6[ : , 2:4] - y_test[ : , 2:4])*14/19
     print ("y_test_6[ran]:" , y_test_6[ran])
 
-    y_test_7 = np.ones([264,4])
+    y_test_7 = np.ones([test_number,4])
     y_test_7[ : , 0:2] = y_test[ : , 0:2] * 6/19
     y_test_7[ : , 2:4] = y_test[ : , 2:4] + (y_test_7[ : , 2:4] - y_test[ : , 2:4])*13/19
     print ("y_test_7[ran]:" , y_test_7[ran])
 
-    y_test_8 = np.ones([264,4])
+    y_test_8 = np.ones([test_number,4])
     y_test_8[ : , 0:2] = y_test[ : , 0:2] * 7/19
     y_test_8[ : , 2:4] = y_test[ : , 2:4] + (y_test_8[ : , 2:4] - y_test[ : , 2:4])*12/19
     print ("y_test_8[ran]:" , y_test_8[ran])
 
-    y_test_9 = np.ones([264,4])
+    y_test_9 = np.ones([test_number,4])
     y_test_9[ : , 0:2] = y_test[ : , 0:2] * 8/19
     y_test_9[ : , 2:4] = y_test[ : , 2:4] + (y_test_9[ : , 2:4] - y_test[ : , 2:4])*11/19
     print ("y_test_9[ran]:" , y_test_9[ran])
 
-    y_test_10 = np.ones([264,4])
+    y_test_10 = np.ones([test_number,4])
     y_test_10[ : , 0:2] = y_test[ : , 0:2] * 9/19
     y_test_10[ : , 2:4] = y_test[ : , 2:4] + (y_test_10[ : , 2:4] - y_test[ : , 2:4])*10/19
     print ("y_test_10[ran]:" , y_test_10[ran])
 
-    y_test_11 = np.ones([264,4])
+    y_test_11 = np.ones([test_number,4])
     y_test_11[ : , 0:2] = y_test[ : , 0:2] * 10/19
     y_test_11[ : , 2:4] = y_test[ : , 2:4] + (y_test_11[ : , 2:4] - y_test[ : , 2:4])*9/19
     print ("y_test_11[ran]:" , y_test_11[ran])
 
-    y_test_12 = np.ones([264,4])
+    y_test_12 = np.ones([test_number,4])
     y_test_12[ : , 0:2] = y_test[ : , 0:2] * 11/19
     y_test_12[ : , 2:4] = y_test[ : , 2:4] + (y_test_12[ : , 2:4] - y_test[ : , 2:4])*8/19
     print ("y_test_12[ran]:" , y_test_12[ran])
 
-    y_test_13 = np.ones([264,4])
+    y_test_13 = np.ones([test_number,4])
     y_test_13[ : , 0:2] = y_test[ : , 0:2] * 12/19
     y_test_13[ : , 2:4] = y_test[ : , 2:4] + (y_test_13[ : , 2:4] - y_test[ : , 2:4])*7/19
     print ("y_test_13[ran]:" , y_test_13[ran])
 
-    y_test_14 = np.ones([264,4])
+    y_test_14 = np.ones([test_number,4])
     y_test_14[ : , 0:2] = y_test[ : , 0:2] * 13/19
     y_test_14[ : , 2:4] = y_test[ : , 2:4] + (y_test_14[ : , 2:4] - y_test[ : , 2:4])*6/19
     print ("y_test_14[ran]:" , y_test_14[ran])
 
-    y_test_15 = np.ones([264,4])
+    y_test_15 = np.ones([test_number,4])
     y_test_15[ : , 0:2] = y_test[ : , 0:2] * 14/19
     y_test_15[ : , 2:4] = y_test[ : , 2:4] + (y_test_15[ : , 2:4] - y_test[ : , 2:4])*5/19
     print ("y_test_15[ran]:" , y_test_15[ran])
 
-    y_test_16 = np.ones([264,4])
+    y_test_16 = np.ones([test_number,4])
     y_test_16[ : , 0:2] = y_test[ : , 0:2] * 15/19
     y_test_16[ : , 2:4] = y_test[ : , 2:4] + (y_test_16[ : , 2:4] - y_test[ : , 2:4])*4/19
     print ("y_test_16[ran]:" , y_test_16[ran])
 
-    y_test_17 = np.ones([264,4])
+    y_test_17 = np.ones([test_number,4])
     y_test_17[ : , 0:2] = y_test[ : , 0:2] * 16/19
     y_test_17[ : , 2:4] = y_test[ : , 2:4] + (y_test_17[ : , 2:4] - y_test[ : , 2:4])*3/19
     print ("y_test_17[ran]:" , y_test_17[ran])
 
-    y_test_18 = np.ones([264,4])
+    y_test_18 = np.ones([test_number,4])
     y_test_18[ : , 0:2] = y_test[ : , 0:2] * 17/19
     y_test_18[ : , 2:4] = y_test[ : , 2:4] + (y_test_18[ : , 2:4] - y_test[ : , 2:4])*2/19
     print ("y_test_18[ran]:" , y_test_18[ran])
 
-    y_test_19 = np.ones([264,4])
+    y_test_19 = np.ones([test_number,4])
     y_test_19[ : , 0:2] = y_test[ : , 0:2] * 18/19
     y_test_19[ : , 2:4] = y_test[ : , 2:4] + (y_test_19[ : , 2:4] - y_test[ : , 2:4])*1/19
     print ("y_test_19[ran]:" , y_test_19[ran])
