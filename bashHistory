@@ -1,0 +1,10 @@
+
+conda activate tensorflow
+
+python 1.py 
+
+kill -9 67037
+
+nvidia-smi
+
+nohup python model2.py >>./out/nohup.out
