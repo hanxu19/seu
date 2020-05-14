@@ -1,5 +1,9 @@
 from __future__ import print_function
 # model Reuse model
+
+import os
+os.environ["CUDA_VISIBLE_DEVICES"] = "1" # Use other GPU
+
 import numpy as np
 import tensorflow.keras.backend as K
 import time
@@ -11,7 +15,6 @@ import sys
 import math
 import keras.losses
 import shutil  
-
 
 from keras.optimizers import Adam
 from tensorflow.keras.callbacks import TensorBoard
@@ -101,7 +104,12 @@ for fog_xmlfile in fog_xml_file:
     bboxes.append(bndbox2)
 
 boxes = np.array(bboxes)
-print (boxes.shape)
+
+print ("boxes.shape:" , boxes.shape)
+
+np.set_printoptions(threshold=sys.maxsize)
+print ("boxes:" ,boxes)
+
 Y = np.array(boxes)
 X = np.array(images)
 
@@ -221,7 +229,7 @@ def gs_block(img, rt, layerNumber):
                 name='conv5' + '_rnn_' + str(layerNumber))(c8)
     c10 = MaxPool2D((3, 3), strides=2, padding='valid')(c9)
 
-    c11 = Flatten()(c10)
+    c11 = Flatten(name = "Flatten"+ str(layerNumber) )(c10)
     c12 = Dense(4096, activation='relu', name='fc4096' + '_rnn_' +
                 str(layerNumber))(c11)  # 2048 in paper, fc 1
     c13 = Dropout(0.5)(c12)
@@ -417,9 +425,8 @@ def calculate_iou(boxes1, boxes2):
 def custom_loss(y_true, y_pred):
     mse = tf.losses.mean_squared_error(y_true, y_pred)
     iou = calculate_iou(y_true, y_pred)
+    # return (1 - iou)
     return mse + (1 - iou)
-    # giou = bbox_giou(y_true, y_pred)
-    # return mse + (1 - giou)
 
 def mse(y_true, y_pred):
     mse = tf.losses.mean_squared_error(y_true, y_pred)
@@ -450,6 +457,8 @@ model.compile(optimizer=Adam( lr=0.0001 ),
 
 loss=[custom_loss,custom_loss,custom_loss,custom_loss,custom_loss,custom_loss,custom_loss,custom_loss,custom_loss,custom_loss,custom_loss,custom_loss,custom_loss,custom_loss,custom_loss,custom_loss,custom_loss,custom_loss,custom_loss], 
 
+loss_weights=[1/19,2/19,3/19,4/19,5/19,6/19,7/19,8/19,9/19,10/19,11/19,12/19,13/19,14/19,15/19,16/19,17/19,18/19,19/19],
+
 metrics= [calculate_iou,mse,predict0,predict1,predict2,predict3,true0,true1,true2,true3] )
 #model.summary()
 
@@ -459,7 +468,7 @@ print ("y_test :" , y_test.shape )
 test_number = y_test.shape[0]
 
 # train or predict
-Next = 'predict'
+Next = 'train'
 if (Next == 'train'):
     
     ran = 3
@@ -659,8 +668,8 @@ if (Next == 'train'):
         # tensorboard,earlystopper,checkpointer
 
 elif (Next == 'predict'):
-    shutil.rmtree('test')  
-    os.mkdir('test') 
+    shutil.rmtree('test')
+    os.mkdir('test')
     model.load_weights(modelsavepath, by_name=True)
 
     test_image_paths = sorted(glob.glob(imgpath))
@@ -697,9 +706,9 @@ elif (Next == 'predict'):
         source_img = Image.fromarray(imgarr.astype(np.uint8), 'RGB')
         draw = ImageDraw.Draw(source_img)
         draw.rectangle(
-            (predictBox[1], predictBox[0], predictBox[3], predictBox[2]), outline="black")
+            (predictBox[1], predictBox[0], predictBox[3], predictBox[2]), outline=(random.randint(0,255),random.randint(0,255),random.randint(0,255)) )
         draw.rectangle(
-            (bndbox[1], bndbox[0], bndbox[3],bndbox[2]), outline="red")
+            (bndbox[1], bndbox[0], bndbox[3],bndbox[2]), outline="yellow")
 
         # print (str(imagefile)+' '+str(xmlfile))
 
@@ -740,9 +749,9 @@ elif (Next == 'predict'):
         source_img = Image.fromarray(imgarr.astype(np.uint8), 'RGB')
         draw = ImageDraw.Draw(source_img)
         draw.rectangle(
-            (predictBox[1], predictBox[0], predictBox[3], predictBox[2]), outline="black")
+            (predictBox[1], predictBox[0], predictBox[3], predictBox[2]), outline=(random.randint(0,255),random.randint(0,255),random.randint(0,255)) )
         draw.rectangle(
-            (bndbox[1], bndbox[0], bndbox[3],bndbox[2]), outline="red")
+            (bndbox[1], bndbox[0], bndbox[3],bndbox[2]), outline="yellow")
 
         # print (str(imagefile)+' '+str(xmlfile))
         source_img.save('./test/{}.png'.format(str(imagefile).replace(str('/home/hx/hanxu/foggy/'),'').replace('.jpg','')), 'png')
@@ -771,8 +780,9 @@ elif (Next == 'predict'):
         source_img = Image.fromarray(imgarr.astype(np.uint8), 'RGB')
         draw = ImageDraw.Draw(source_img)
         draw.rectangle(
-            (predictBox[1], predictBox[0], predictBox[3], predictBox[2]), outline="yellow")
+            (predictBox[1], predictBox[0], predictBox[3], predictBox[2]), outline=(random.randint(0,255),random.randint(0,255),random.randint(0,255)) )
         
 
         # print (str(imagefile)+' '+str(xmlfile))
         source_img.save('./raintest/{}.png'.format(str(imagefile).replace(str('/home/hx/hanxu/rain/'),'').replace('.jpg','')), 'png')
+    print ( "###FINISH###" )
