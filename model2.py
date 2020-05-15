@@ -2,7 +2,23 @@ from __future__ import print_function
 # model Reuse model
 
 import os
-os.environ["CUDA_VISIBLE_DEVICES"] = "1" # Use other GPU
+import pynvml
+import sys
+
+GPU_num = 0
+pynvml.nvmlInit()
+handle = pynvml.nvmlDeviceGetHandleByIndex(GPU_num)
+meminfo = pynvml.nvmlDeviceGetMemoryInfo(handle)
+print("Total : " , meminfo.total/1024/1024 , "MB") 
+print("Used : " , meminfo.used/1024/1024 , "MB")
+print("Free : " , meminfo.free/1024/1024 , "MB")
+if (meminfo.used/1024/1024 > 1000) : 
+    print ("USING")
+    sys.exit()
+sys.exit()
+
+os.environ["CUDA_VISIBLE_DEVICES"] = str(GPU_num) # Use other GPU
+
 
 import numpy as np
 import tensorflow.keras.backend as K

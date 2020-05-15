@@ -3730,3 +3730,13 @@ test/mushroom_59.png
 test/mushroom_60.png
 test/mushroom_61.png
 abandonedCode.py
+nvidia-ml-py-10.418.84/example.py
+nvidia-ml-py-10.418.84/PKG-INFO
+nvidia-ml-py-10.418.84/pynvml.py
+nvidia-ml-py-10.418.84/README.txt
+nvidia-ml-py-10.418.84/setup.py
+nvidia-ml-py-10.418.84/__pycache__/pynvml.cpython-37.pyc
+nvidia-ml-py-10.418.84/build/lib/example.py
+nvidia-ml-py-10.418.84/build/lib/pynvml.py
+nvidia-ml-py-10.418.84/build/lib.linux-x86_64-2.7/example.py
+nvidia-ml-py-10.418.84/build/lib.linux-x86_64-2.7/pynvml.py
